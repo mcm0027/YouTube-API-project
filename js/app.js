@@ -6,16 +6,15 @@ $(function(){
 
     // Helper function to display JavaScript value on HTML page.
     function showResponse(response) {
-    
-        console.log(response.items);
+        document.getElementById('response').innerHTML = "";
         $.each(response.items, function(index, value){
             var title = JSON.stringify(value.snippet.title, '', 2);
-            var thumbnail = JSON.stringify(value.snippet.thumbnails.default.url, '', 2);
+            var thumbnail = JSON.stringify(value.snippet.thumbnails.high.url, '', 2);
             var id = value.id.videoId;
             var link = "https://www.youtube.com/watch?v=" + id;
             thumbnail = thumbnail.replace("https://", "http://");
             document.getElementById('response').innerHTML += (title + "<br>");
-            document.getElementById('response').innerHTML += ('<a href=' + link + '><img src=' + thumbnail + '><br></a>');
+            document.getElementById('response').innerHTML += ('<a href=' + link + '><img src=' + thumbnail + 'style="width:480px;height:360px;"><br></a>');
            });
     }
 
@@ -35,7 +34,6 @@ $(function(){
 
 
     function search() {
-        console.log(userSearch);
         // Use the JavaScript client library to create a search.list() API call.
         var request = gapi.client.youtube.search.list({
             part: 'snippet',
